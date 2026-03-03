@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Contact Us</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+    min-height:100vh;
+    background:url("bg.jpg") center/cover no-repeat fixed;
+    position:relative;
+    overflow-x:hidden;
+}
+
+/* overlay */
+body::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    z-index:0;
+}
+
+/* mouse glow */
+.glow{
+    position:fixed;
+    width:300px;
+    height:300px;
+    background:radial-gradient(circle, rgba(106,17,203,.35), transparent 60%);
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    z-index:1;
+}
+
+/* page */
+.page{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding:50px;
+    position:relative;
+    z-index:2;
+    animation:fade 1s ease;
+}
+
+@keyframes fade{
+    from{opacity:0;transform:translateY(40px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.content-wrapper{
+    display:flex;
+    gap:50px;
+    max-width:1100px;
+    margin:auto;
+    width:100%;
+    color:#fff;
+}
+
+/* LEFT */
+.contact-info{
+    flex:1;
+    animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-14px)}
+}
+
+.contact-info h1{
+    font-size:42px;
+    background:linear-gradient(135deg,#8e2de2,#4a00e0);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.info-box{
+    margin-top:15px;
+    padding:12px 15px;
+    background:rgba(255,255,255,.12);
+    border-left:4px solid #6a11cb;
+    border-radius:6px;
+    transition:.4s;
+}
+
+.info-box:hover{
+    transform:translateX(15px) scale(1.05);
+}
+
+/* FORM */
+.contact-form{
+    flex:1;
+    background:#fff;
+    padding:35px;
+    border-radius:18px;
+    color:#333;
+    position:relative;
+    transition:.2s;
+    box-shadow:0 25px 50px rgba(0,0,0,.35);
+}
+
+.contact-form h2{text-align:center;margin-bottom:25px}
+
+.form-group{position:relative;margin-bottom:24px}
+
+input,textarea{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #ccc;
+    font-size:14px;
+}
+
+input:focus,textarea:focus{
+    border-color:#6a11cb;
+    box-shadow:0 0 0 3px rgba(106,17,203,.25);
+}
+
+label{
+    position:absolute;
+    top:50%;
+    left:16px;
+    transform:translateY(-50%);
+    font-size:13px;
+    color:#888;
+    background:#fff;
+    padding:0 6px;
+    transition:.3s;
+    pointer-events:none;
+}
+
+input:focus + label,
+input:not(:placeholder-shown)+label,
+textarea:focus+label,
+textarea:not(:placeholder-shown)+label{
+    top:-9px;
+    color:#6a11cb;
+    font-size:12px;
+}
+
+/* character count */
+.counter{
+    font-size:12px;
+    text-align:right;
+    color:#777;
+}
+
+/* button */
+button{
+    width:100%;
+    padding:16px;
+    background:linear-gradient(135deg,#6a11cb,#2575fc);
+    border:none;
+    border-radius:12px;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+}
+
+button span{position:relative;z-index:2}
+
+/* ripple */
+button::after{
+    content:"";
+    position:absolute;
+    width:0;height:0;
+    background:rgba(255,255,255,.5);
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+}
+
+button:active::after{
+    animation:ripple .6s;
+}
+
+@keyframes ripple{
+    from{width:0;height:0;opacity:.6}
+    to{width:400px;height:400px;opacity:0}
+}
+
+/* success */
+.success{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:10;
+}
+
+.success-box{
+    background:#fff;
+    padding:40px;
+    border-radius:18px;
+    text-align:center;
+    animation:pop .5s ease;
+}
+
+@keyframes pop{
+    from{transform:scale(.5);opacity:0}
+    to{transform:scale(1);opacity:1}
+}
+
+@media(max-width:900px){
+    .content-wrapper{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow"></div>
+
+<div class="page">
+<div class="content-wrapper">
+
+    <div class="contact-info">
+        <h1>Get in Touch</h1>
+        <p>We’d love to hear from you.</p>
+        <div class="info-box">📧 contact@example.com</div>
+        <div class="info-box">📞 +91 98765 43210</div>
+        <div class="info-box">📍 Mumbai, India</div>
+    </div>
+
+    <div class="contact-form" id="card">
+        <h2>Contact Form</h2>
+        <form id="contactForm">
+            <div class="form-group">
+                <input type="text" name="name" id="name" required placeholder=" ">
+                <label>Full Name</label>
+            </div>
+
+            <div class="form-group">
+                <input type="email" name="email" id="email" required placeholder=" ">
+                <label>Email</label>
+            </div>
+
+            <div class="form-group">
+                <textarea name="message" id="msg" rows="4" maxlength="200" placeholder=" "></textarea>
+                <label>Message</label>
+                <div class="counter"><span id="count">0</span>/200</div>
+            </div>
+
+            <button type="submit"><span>Send Message</span></button>
+        </form>
+    </div>
+
+</div>
+</div>
+
+<div class="success" id="success">
+    <div class="success-box">
+        <h3>Message Sent 🎉</h3>
+        <p>We’ll contact you soon</p>
+    </div>
+</div>
+
+<script>
+/* mouse glow */
+document.addEventListener("mousemove",e=>{
+    document.querySelector(".glow").style.left=e.clientX+"px";
+    document.querySelector(".glow").style.top=e.clientY+"px";
+});
+
+/* parallax card */
+const card=document.getElementById("card");
+document.addEventListener("mousemove",e=>{
+    let x=(window.innerWidth/2-e.clientX)/30;
+    let y=(window.innerHeight/2-e.clientY)/30;
+    card.style.transform=`rotateY(${x}deg) rotateX(${y}deg)`;
+});
+
+/* counter */
+const msg=document.getElementById("msg");
+const count=document.getElementById("count");
+msg.addEventListener("input",()=>count.textContent=msg.value.length);
+
+/* submit */
+const form=document.getElementById("contactForm");
+const success=document.getElementById("success");
+
+form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('msg').value.trim();
+
+    if (!name || !email || !message) {
+        alert('Please fill all fields');
+        return;
+    }
+
+    try {
+        const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, message })
+        });
+
+        const data = await res.json().catch(() => ({}));
+
+        if (res.ok) {
+            // Redirect to the thank you page on successful submit
+            window.location.href = '/thankyou.html';
+            form.reset();
+            count.textContent = 0;
+        } else {
+            alert(data.msg || 'Server error');
+        }
+    } catch (err) {
+        console.error('Contact submit error', err);
+        alert('Network error');
+    }
+});
+
+success.onclick=()=>success.style.display="none";
+</script>
+
+</body>
+</html>

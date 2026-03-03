@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thank You | Shri Balaji Supermarket</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #43cea2, #185a9d);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .thankyou-card {
+            background: #ffffff;
+            padding: 40px;
+            text-align: center;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 520px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .thankyou-card img {
+            width: 180px;
+            margin-bottom: 20px;
+        }
+
+        .icon {
+            font-size: 60px;
+            color: #43cea2;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #185a9d;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .order-msg {
+            font-size: 16px;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .home-btn {
+            text-decoration: none;
+            background: linear-gradient(135deg, #43cea2, #185a9d);
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        .home-btn:hover {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="thankyou-card">
+
+        <!-- Image -->
+        <img src="/images/thanks.jpg" alt="Thank You Shopping Image">
+
+        <div class="icon">✅</div>
+
+        <h1>Thank You!</h1>
+        <p>Your order has been placed successfully</p>
+
+        <div class="order-msg">
+            Thank you for shopping with <strong>Shri Balaji Supermarket</strong> 🛒  
+            <br>We will deliver your items soon.
+        </div>
+
+                <div id="orderDetails" style="text-align:left;margin-top:18px"></div>
+
+                <a href="/home" class="home-btn">Continue Shopping</a>
+  
+    </div>
+
+<script>
+// Try to show lastOrder (saved by order page) or fetch orderId from query
+function renderOrderDetails(order){
+    const container = document.getElementById('orderDetails');
+    if(!order){ container.innerHTML = '' ; return; }
+    let html = `<p><strong>Order ID:</strong> ${order.orderId || order._id || ''}</p>`;
+    html += `<p><strong>Total:</strong> ₹${(order.totalAmount || order.total || 0).toFixed ? (order.totalAmount || order.total).toFixed(2) : (order.totalAmount||order.total)}</p>`;
+    if(order.products && order.products.length){
+        html += '<h4>Purchased Items:</h4><ul>';
+        order.products.forEach(p=>{
+            const name = p.productName || p.name || p.title || p.item || (p.product && (p.product.productName || p.product.name || p.product.title)) || 'Item';
+            const qty = p.quantity || p.qty || 1;
+            const price = p.price || p.unitPrice || p.amount || 0;
+            html += `<li>${name} — Qty: ${qty} — ₹${(parseFloat(price)||0).toFixed(2)}</li>`;
+        });
+        html += '</ul>';
+    }
+    container.innerHTML = html;
+}
+
+(function(){
+    try{
+        const params = new URLSearchParams(window.location.search);
+        const oid = params.get('orderId');
+        // prefer lastOrder snapshot in localStorage
+        const last = JSON.parse(localStorage.getItem('lastOrder')) || null;
+        if(last){ renderOrderDetails(last); return; }
+        if(oid){
+            // try fetch from API
+            fetch('/api/orders/'+encodeURIComponent(oid)).then(r=>r.json()).then(data=>{
+                if(data && (data.data||data)) renderOrderDetails(data.data||data);
+            }).catch(()=>{});
+        }
+    }catch(e){}
+})();
+</script>
+
+</body>
+</html>

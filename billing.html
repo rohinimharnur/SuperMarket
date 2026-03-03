@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Billing | Shri Balaji Supermarket</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+  background:linear-gradient(to right, #ffecd2, #fcb69f);
+  padding:20px;
+}
+
+/* Header */
+header{
+  background:linear-gradient(to right, #43cea2, #185a9d);
+  color:white;
+  text-align:center;
+  padding:20px;
+  font-size:28px;
+  font-weight:bold;
+  border-radius:10px;
+}
+
+/* Table */
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:30px;
+  background:white;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 6px 12px rgba(0,0,0,0.2);
+}
+
+table th, table td{
+  padding:15px;
+  text-align:center;
+  border-bottom:1px solid #ddd;
+}
+
+table th{
+  background:#ff6f00;
+  color:white;
+}
+
+button{
+  background:#ff3d00;
+  color:white;
+  padding:8px 20px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+button:hover{
+  background:#d32f2f;
+}
+
+input[type="number"]{
+  width:60px;
+  padding:5px;
+  text-align:center;
+  border-radius:5px;
+  border:1px solid #ccc;
+}
+
+/* Total Section */
+#total{
+  margin-top:20px;
+  font-size:20px;
+  font-weight:bold;
+  text-align:right;
+  color:#2e7d32;
+}
+</style>
+</head>
+
+<body>
+
+<header>🧾 Billing - Shri Balaji Supermarket Arali</header>
+
+<h2 style="margin-top:20px;">Select Products:</h2>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Price (₹)</th>
+    <th>Quantity</th>
+    <th>Action</th>
+  </tr>
+  <tr>
+    <td>Rice</td>
+    <td>60</td>
+    <td><input type="number" id="qty1" value="0" min="0"></td>
+    <td><button onclick="addToBill('Rice', 60, 'qty1')">Add</button></td>
+  </tr>
+  <tr>
+    <td>Wheat</td>
+    <td>45</td>
+    <td><input type="number" id="qty2" value="0" min="0"></td>
+    <td><button onclick="addToBill('Wheat', 45, 'qty2')">Add</button></td>
+  </tr>
+  <tr>
+    <td>Cooking Oil</td>
+    <td>150</td>
+    <td><input type="number" id="qty3" value="0" min="0"></td>
+    <td><button onclick="addToBill('Cooking Oil', 150, 'qty3')">Add</button></td>
+  </tr>
+  <tr>
+    <td>Sugar</td>
+    <td>42</td>
+    <td><input type="number" id="qty4" value="0" min="0"></td>
+    <td><button onclick="addToBill('Sugar', 42, 'qty4')">Add</button></td>
+  </tr>
+  <tr>
+    <td>Soap</td>
+    <td>30</td>
+    <td><input type="number" id="qty5" value="0" min="0"></td>
+    <td><button onclick="addToBill('Soap', 30, 'qty5')">Add</button></td>
+  </tr>
+</table>
+
+<div id="bill" style="margin-top:30px; background:white; padding:15px; border-radius:10px; box-shadow:0 6px 12px rgba(0,0,0,0.2);">
+  <h3>Bill Details:</h3>
+  <ul id="billList"></ul>
+  <div id="total">Total: ₹0</div>
+  <button onclick="resetBill()">Reset Bill</button>
+</div>
+
+<script>
+let totalAmount = 0;
+
+function addToBill(product, price, qtyId){
+  let qty = parseInt(document.getElementById(qtyId).value);
+  if(qty <= 0){
+    alert("Enter quantity!");
+    return;
+  }
+  let amount = price * qty;
+  totalAmount += amount;
+
+  let li = document.createElement('li');
+  li.textContent = `${product} - ${qty} × ₹${price} = ₹${amount}`;
+  document.getElementById('billList').appendChild(li);
+
+  document.getElementById('total').textContent = 'Total: ₹' + totalAmount;
+
+  document.getElementById(qtyId).value = 0; // reset quantity
+}
+
+function resetBill(){
+  totalAmount = 0;
+  document.getElementById('billList').innerHTML = '';
+  document.getElementById('total').textContent = 'Total: ₹0';
+}
+</script>
+
+</body>
+</html>

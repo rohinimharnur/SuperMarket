@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirm Order | Shri Balaji Supermarket</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background: linear-gradient(to right,#f8f9fa,#e9ecef);
+}
+
+/* Header */
+header{
+    background:#28a745;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+}
+
+/* Main Container */
+.container{
+    width:90%;
+    max-width:500px;
+    background:white;
+    margin:40px auto;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Title */
+.container h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#333;
+}
+
+/* Order Details */
+.order-box{
+    background:#f8f9fa;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:20px;
+}
+
+.order-box p{
+    margin:8px 0;
+    font-size:15px;
+}
+
+.total{
+    font-weight:bold;
+    font-size:18px;
+    color:#28a745;
+}
+
+/* Form */
+form input, form textarea{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border-radius:5px;
+    border:1px solid #ccc;
+    font-size:14px;
+}
+
+textarea{
+    resize:none;
+}
+
+/* Buttons */
+.btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.confirm-btn{
+    background:#28a745;
+    color:white;
+}
+
+.confirm-btn:hover{
+    background:#218838;
+}
+
+.cancel-btn{
+    background:#dc3545;
+    color:white;
+}
+
+.cancel-btn:hover{
+    background:#c82333;
+}
+
+/* Footer */
+footer{
+    text-align:center;
+    padding:15px;
+    background:#343a40;
+    color:white;
+    margin-top:40px;
+    font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+Shri Balaji Supermarket 🛒
+</header>
+
+<div class="container">
+    <h2>Confirm Your Order</h2>
+
+    <!-- Order Summary -->
+    <div class="order-box" id="orderBox">
+        <div id="itemsList"></div>
+        <p class="total">Total Amount: ₹<span id="totalAmount">0</span></p>
+    </div>
+
+        <!-- Customer Details Form -->
+        <form id="orderForm">
+                <input id="custName" type="text" placeholder="Full Name" required>
+                <input id="custPhone" type="tel" placeholder="Mobile Number" required>
+                <input id="custEmail" type="email" placeholder="Email (optional)">
+                <textarea id="custAddress" rows="3" placeholder="Delivery Address" required></textarea>
+
+                <button type="submit" class="btn confirm-btn">Confirm Order</button>
+                <button type="button" id="cancelBtn" class="btn cancel-btn">Cancel Order</button>
+        </form>
+        <div id="confirmation" style="display:none;margin-top:18px"></div>
+
+        <script>
+            // Load cart from localStorage (checkoutCart or cart)
+            function loadCart() {
+                let cart = [];
+                try {
+                    cart = JSON.parse(localStorage.getItem('checkoutCart')) || JSON.parse(localStorage.getItem('cart')) || [];
+                } catch (e) { cart = []; }
+                return cart;
+            }
+
+            function renderSummary() {
+                const cart = loadCart();
+                const itemsList = document.getElementById('itemsList');
+                const totalEl = document.getElementById('totalAmount');
+                itemsList.innerHTML = '';
+                let total = 0;
+                if (!cart || cart.length === 0) {
+                    itemsList.innerHTML = '<p>Your cart is empty.</p>';
+                } else {
+                    cart.forEach(i => {
+                        const row = document.createElement('p');
+                        const name = i.name || i.productName || 'Item';
+                        const qty = i.quantity || 1;
+                        const price = parseFloat(i.price || i.pricePerUnit || i.unitPrice || 0);
+                        row.innerHTML = `<strong>${name}</strong> — Qty: ${qty} — ₹${price.toFixed(2)}`;
+                        itemsList.appendChild(row);
+                        total += price * qty;
+                    });
+                }
+                totalEl.textContent = total.toFixed(2);
+            }
+
+            async function submitOrder(e) {
+                e.preventDefault();
+                const cart = loadCart();
+                if (!cart || cart.length === 0) return alert('Cart is empty');
+
+                const products = cart.map(i => ({ productName: i.name || i.productName, quantity: i.quantity || 1, price: parseFloat(i.price || i.unitPrice || 0) }));
+                const totalAmount = parseFloat(document.getElementById('totalAmount').textContent) || 0;
+
+                const payload = {
+                    customerName: document.getElementById('custName').value,
+                    customerEmail: document.getElementById('custEmail').value || '',
+                    customerPhone: document.getElementById('custPhone').value,
+                    address: document.getElementById('custAddress').value,
+                    products,
+                    totalAmount
+                };
+
+                try {
+                    const res = await fetch('/api/orders', {
+                        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.error || data.message || 'Order failed');
+                    const order = data.data || data;
+                    // show confirmation
+                    showConfirmation(order);
+                    // save snapshot
+                    try { localStorage.setItem('lastOrder', JSON.stringify(order)); localStorage.removeItem('checkoutCart'); localStorage.removeItem('cart'); } catch(e){}
+                } catch (err) {
+                    alert('Failed to place order: ' + (err.message || err));
+                }
+            }
+
+            function showConfirmation(order) {
+                document.getElementById('orderForm').style.display = 'none';
+                const conf = document.getElementById('confirmation');
+                conf.style.display = 'block';
+                const id = order.orderId || (order._id && order._id) || (order.data && (order.data.orderId || order.data._id)) || '';
+                const total = order.totalAmount || (order.data && order.data.totalAmount) || document.getElementById('totalAmount').textContent;
+                conf.innerHTML = `<div style="padding:16px;background:#e9f7ef;border-radius:8px"><h3 style="color:#28a745">Order Confirmed</h3><p><strong>Order ID:</strong> ${id}</p><p><strong>Total:</strong> ₹${parseFloat(total).toFixed(2)}</p><div style="margin-top:12px"><button id="payNow" class="btn confirm-btn">Proceed to Payment</button> <button id="homeNow" class="btn" style="background:#6c757d;color:white;margin-left:8px">Continue Shopping</button></div></div>`;
+                document.getElementById('payNow').addEventListener('click', ()=>{
+                    const q = new URLSearchParams({ orderId: id, amount: total }).toString();
+                    window.location.href = '/payment.html?' + q;
+                });
+                document.getElementById('homeNow').addEventListener('click', ()=> window.location.href='/home');
+            }
+
+                        const orderFormEl = document.getElementById('orderForm');
+                        if (orderFormEl) orderFormEl.addEventListener('submit', submitOrder);
+                        const cancelBtnEl = document.getElementById('cancelBtn');
+                        if (cancelBtnEl) cancelBtnEl.addEventListener('click', ()=> { localStorage.removeItem('checkoutCart'); window.location.href='/cart'; });
+                        renderSummary();
+        </script>
+</div>
+
+<footer>
+© 2026 Shri Balaji Supermarket | All Rights Reserved
+</footer>
+
+</body>
+</html>

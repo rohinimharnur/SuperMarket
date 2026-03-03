@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bakery & Snacks - Shri Balaji Supermarket</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+body{
+  background:#f4f4f4;
+}
+header{
+  background:#c61313; /* Red header */
+  color:white;
+  text-align:center;
+  padding:15px;
+  font-size:26px;
+  font-weight:bold;
+}
+nav{
+  background:#b52c1d; /* Red shade */
+  text-align:center;
+  padding:10px;
+}
+nav a{
+  color:white;
+  margin:0 12px;
+  text-decoration:none;
+  font-weight:bold;
+}
+nav a:hover{
+  color:#ffd54f;
+}
+.title{
+  text-align:center;
+  padding:20px;
+}
+
+.product-card{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.product-card:hover{
+  transform: translateY(-8px) scale(1.03);
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Image zoom on hover */
+.product-card img{
+  width:120px;
+  height:120px;
+  object-fit:contain;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover img{
+  transform: scale(1.1);
+}
+
+/* Button hover glow */
+.product-card:hover button{
+  background:#9e1010;
+}
+
+.products{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  padding:20px;
+}
+.product-card{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+.product-card img{
+  width:120px;
+  height:120px;
+  object-fit:contain;
+}
+.product-card h3{
+  margin:10px 0;
+  color:#c61313; /* Red headings */
+}
+.product-card p{
+  font-size:14px;
+  margin:4px 0;
+  color:#444;
+}
+.price{
+  font-weight:bold;
+  margin:8px 0;
+}
+button{
+  background:#c61313; /* Red buttons */
+  color:white;
+  border:none;
+  padding:8px 15px;
+  border-radius:5px;
+  cursor:pointer;
+}
+button:hover{
+  background:#9e1010;
+}
+footer{
+  background:#b52c1d;
+  color:white;
+  text-align:center;
+  padding:15px;
+  margin-top:30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>Shri Balaji Supermarket</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="products.html">Shop</a>
+  <a href="categories.html">Categories</a>
+  <a href="cart.html">Cart</a>
+    <a href="order.html">order</a>
+  <a href="abc.html">Contact</a>
+</nav>
+
+<div class="title">
+<h2>Bakery & Snacks</h2>
+</div>
+
+<section class="products">
+
+<!-- Bakery & Snacks Products -->
+<div class="product-card">
+  <img src="images/bread.jpg" alt="Bread">
+  <h3>Bread</h3>
+  <p>Soft and fresh bakery bread.</p>
+  <p>Used for breakfast and snacks.</p>
+  <p class="price">₹39</p>
+  <button onclick="addToCart('Bread',39)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/toast.jpg" alt="Toast">
+  <h3>Toast</h3>
+  <p>Crispy baked bread slices.</p>
+  <p>Good for tea time.</p>
+  <p class="price">₹40</p>
+  <button onclick="addToCart('Toast',40)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/khari.jpg" alt="Khari">
+  <h3>Khari</h3>
+  <p>Flaky bakery snack.</p>
+  <p>Popular evening snack.</p>
+  <p class="price">₹68</p>
+  <button onclick="addToCart('Khari',68)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/black wheels.jpg" alt="Black Wheels">
+  <h3>Black Wheels</h3>
+  <p>Crunchy snack wheels.</p>
+  <p>Spicy and tasty.</p>
+  <p class="price">₹5</p>
+  <button onclick="addToCart('Black Wheels',5)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/kurkure.jpg" alt="Kurkure">
+  <h3>Kurkure</h3>
+  <p>Crunchy corn snack.</p>
+  <p>Favourite kids snack.</p>
+  <p class="price">₹5</p>
+  <button onclick="addToCart('Kurkure',5)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/cream roll.jpg" alt="Cream Roll">
+  <h3>Cream Roll</h3>
+  <p>Sweet cream filled roll.</p>
+  <p>Soft and tasty.</p>
+  <p class="price">₹60</p>
+  <button onclick="addToCart('Cream Roll',60)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/krackjack.jpg" alt="Krackjack Biscuit">
+  <h3>Krackjack Biscuit</h3>
+  <p>Sweet and salty biscuit.</p>
+  <p>Perfect tea-time snack.</p>
+  <p class="price">₹5</p>
+  <button onclick="addToCart('Krackjack Biscuit',5)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/oreo bis.jpg" alt="Oreo Biscuit">
+  <h3>Oreo Biscuit</h3>
+  <p>Chocolate cream biscuit.</p>
+  <p>Kids favourite snack.</p>
+  <p class="price">₹10</p>
+  <button onclick="addToCart('Oreo Biscuit',10)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/green wheels.jpg" alt="Green Wheels">
+  <h3>Green Wheels</h3>
+  <p>Spicy crunchy wheels.</p>
+  <p>Fun snack item.</p>
+  <p class="price">₹5</p>
+  <button onclick="addToCart('Green Wheels',5)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/marie.jpg" alt="Marie Biscuit">
+  <h3>Marie Biscuit</h3>
+  <p>Light and healthy biscuit.</p>
+  <p>Good with tea.</p>
+  <p class="price">₹10</p>
+  <button onclick="addToCart('Marie Biscuit',10)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/magix.jpg" alt="Magix Biscuit">
+  <h3>Magix Biscuit</h3>
+  <p>Crunchy cream biscuit.</p>
+  <p>Chocolate flavour.</p>
+  <p class="price">₹5</p>
+  <button onclick="addToCart('Magix Biscuit',5)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/bourbon.jpg" alt="Bourbon Biscuit">
+  <h3>Bourbon Biscuit</h3>
+  <p>Chocolate cream biscuit.</p>
+  <p>Rich taste.</p>
+  <p class="price">₹10</p>
+  <button onclick="addToCart('Bourbon Biscuit',10)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/chataka.jpg" alt="Chataka Pataka">
+  <h3>Chataka Pataka</h3>
+  <p>Spicy Indian snack.</p>
+  <p>Crunchy and tasty.</p>
+  <p class="price">₹5</p>
+  <button onclick="addToCart('Chataka Pataka',5)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/panjabi tadaka.jpg" alt="Panjabi Tadaka">
+  <h3>Panjabi Tadaka</h3>
+  <p>Spicy mixture snack.</p>
+  <p>Traditional taste.</p>
+  <p class="price">₹5</p>
+  <button onclick="addToCart('Panjabi Tadaka',5)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/bhadang.jpg" alt="Bhadang">
+  <h3>Bhadang</h3>
+  <p>Puffed rice snack.</p>
+  <p>Popular Maharashtrian snack.</p>
+  <p class="price">₹76</p>
+  <button onclick="addToCart('Bhadang',76)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+  <img src="images/ganesh.jpg" alt="Ganesh Farasan">
+  <h3>Ganesh Farasan</h3>
+  <p>Household essential items.</p>
+  <p>Used daily at home.</p>
+  <p class="price">₹80</p>
+  <button onclick="addToCart('Ganesh Farasan',80)">Add to Cart</button>
+</div>
+
+</section>
+
+<footer>
+© 2025 Shri Balaji Supermarket
+</footer>
+
+<script>
+function addToCart(name, price){
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let found = cart.find(item => item.name === name);
+
+  if(found){
+    found.quantity += 1;
+  } else {
+    cart.push({name:name, price:price, quantity:1});
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  // ✅ Direct Cart Page Navigation
+  window.location.href = "cart.html";
+}
+</script>
+
+
+</body>
+</html>

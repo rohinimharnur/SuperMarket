@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart - Shri Balaji Supermarket</title>
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f4f4;
+  padding:20px;
+}
+h2{text-align:center;color:#c61313;}
+table{
+  width:90%;
+  margin:auto;
+  background:white;
+  border-collapse:collapse;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+th,td{
+  border:1px solid #ddd;
+  padding:10px;
+  text-align:center;
+}
+th{background:#c61313;color:white;}
+.qty-btn{
+  padding:5px 10px;
+  margin:0 5px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  background:#c61313;
+  color:white;
+  font-weight:bold;
+}
+.remove-btn{
+  background:#e53935;
+  color:white;
+  border:none;
+  padding:6px 12px;
+  border-radius:5px;
+  cursor:pointer;
+}
+.total-box{
+  text-align:center;
+  margin:20px auto;
+  font-size:22px;
+  font-weight:bold;
+  color:#c61313;
+  background:#fff3f3;
+  padding:12px;
+  width:50%;
+  border-radius:8px;
+}
+.buttons{text-align:center;}
+.buttons button{
+  padding:10px 22px;
+  margin:6px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  color:white;
+  font-weight:bold;
+}
+#orderBtn{background:#ff9800;}
+#backBtn{background:#2e7d32;}
+.fade{animation: fadeOut 0.3s forwards;}
+@keyframes fadeOut{
+  to{opacity:0; transform:translateX(-20px)}
+}
+</style>
+</head>
+
+<body>
+
+<h2>Your Shopping Cart 🛒</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Product</th>
+  <th>Price</th>
+  <th>Quantity</th>
+  <th>Total</th>
+  <th>Remove</th>
+</tr>
+</thead>
+<tbody id="cartItems"></tbody>
+</table>
+
+<div class="total-box" id="grandTotal"></div>
+
+<div class="buttons">
+  <button id="orderBtn" onclick="goToOrder()">Proceed to Order</button>
+  <button id="backBtn" onclick="goBack()">Back to Shopping</button>
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const cartItems = document.getElementById("cartItems");
+const grandTotal = document.getElementById("grandTotal");
+
+function renderCart(){
+  cartItems.innerHTML = "";
+  let totalAmount = 0;
+
+  if(cart.length === 0){
+    cartItems.innerHTML =
+      `<tr><td colspan="5">Your cart is empty 😞</td></tr>`;
+    grandTotal.innerHTML = "";
+    return;
+  }
+
+  cart.forEach((item,index)=>{
+    let itemTotal = item.price * item.quantity;
+    totalAmount += itemTotal;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${item.name}</td>
+      <td>₹${item.price}</td>
+      <td>
+        <button class="qty-btn" onclick="changeQty(${index},-1)">−</button>
+        ${item.quantity}
+        <button class="qty-btn" onclick="changeQty(${index},1)">+</button>
+      </td>
+      <td>₹${itemTotal}</td>
+      <td>
+        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+      </td>
+    `;
+    cartItems.appendChild(row);
+  });
+
+  grandTotal.innerHTML = "Grand Total : ₹" + totalAmount;
+
+  localStorage.setItem("cartTotal", totalAmount);
+}
+
+function changeQty(index,delta){
+  cart[index].quantity += delta;
+  if(cart[index].quantity < 1) cart[index].quantity = 1;
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+}
+
+function removeItem(index){
+  cart.splice(index,1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+}
+
+function goToOrder(){
+  localStorage.setItem("checkoutCart", JSON.stringify(cart));
+  window.location.href = "order.html";
+}
+
+function goBack(){
+  // navigate to server route that serves the products/shop page
+  window.location.href = "/shop";
+}
+
+renderCart();
+</script>
+</body>
+</html>

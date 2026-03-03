@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Products - Shri Balaji Supermarket</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+body{
+  background:#f4f4f4;
+}
+header{
+  background:#c61313; /* Red color */
+  color:white;
+  text-align:center;
+  padding:15px;
+  font-size:26px;
+  font-weight:bold;
+}
+nav{
+  background:#b52c1d; /* Red shade */
+  text-align:center;
+  padding:10px;
+}
+nav a{
+  color:white;
+  margin:0 12px;
+  text-decoration:none;
+  font-weight:bold;
+}
+nav a:hover{
+  color:#ffd54f;
+}
+.title{
+  text-align:center;
+  padding:20px;
+}
+
+.product-card{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.product-card:hover{
+  transform: translateY(-8px) scale(1.03);
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Image zoom on hover */
+.product-card img{
+  width:120px;
+  height:120px;
+  object-fit:contain;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover img{
+  transform: scale(1.1);
+}
+
+/* Button hover glow */
+.product-card:hover button{
+  background:#9e1010;
+}
+
+.products{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  padding:20px;
+}
+.product-card{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+.product-card img{
+  width:120px;
+  height:120px;
+  object-fit:contain;
+}
+.product-card h3{
+  margin:10px 0;
+  color:#c61313; /* Red headings */
+}
+.product-card p{
+  font-size:14px;
+  margin:4px 0;
+  color:#444;
+}
+.price{
+  font-weight:bold;
+  margin:8px 0;
+}
+button{
+  background:#c61313; /* Red button */
+  color:white;
+  border:none;
+  padding:8px 15px;
+  border-radius:5px;
+  cursor:pointer;
+}
+button:hover{
+  background:#9e1010;
+}
+footer{
+  background:#b52c1d;
+  color:white;
+  text-align:center;
+  padding:15px;
+  margin-top:30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>Shri Balaji Supermarket</header>
+
+<nav>
+  <a href="index.html" class="active">Home</a>
+  <a href="about.html">About</a>
+  <a href="products.html">Shop</a>
+  <a href="categories.html">Categories</a>
+  <a href="cart.html">Cart</a>
+  <a href="abc.html">Contact</a>
+  <a href="#" id="logout-link">Logout</a>
+</nav>
+
+<div class="title">
+<h2>Daily Products</h2>
+</div>
+
+<section class="products">
+
+<!-- Daily Products -->
+<div class="product-card">
+<img src="images/ambari.jpg" alt="chilli powder">
+<h3>chilli powder</h3>
+<p>Fresh and pure chilli powder</p>
+<p>Chilli powder is used to add **spice, flavor, and color** to food. .</p>
+<p class="price">₹70</p>
+<button onclick="addToCart('chilli powder',70)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/black wheels.jpg" alt="black wheels">
+<h3>black wheels</h3>
+<p>Healthy </p>
+<p>Good for digestion.</p>
+<p class="price">₹90</p>
+<button onclick="addToCart('black wheels',90)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/chataka.jpg" alt="chataka">
+<h3>chataka</h3>
+<p>Rich and creamy dairy product.</p>
+<p>spicy.</p>
+<p class="price">₹118</p>
+<button onclick="addToCart('chataka',118)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/dettol.jpg" alt="dettol soap">
+<h3>dettol</h3>
+<p>Pure.</p>
+<p>used for washing hands.</p>
+<p class="price">₹50</p>
+<button onclick="addToCart('dettol',285)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/kolam rice.jpg" alt="kolam rice">
+<h3>kolam rice</h3>
+<p>Fresh rice.</p>
+<p>daily product.</p>
+<p class="price">₹50</p>
+<button onclick="addToCart('kolam rice',50)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/Rin.jpg" alt="rin soap">
+<h3>Rin</h3>
+<p>Dairy product with fresh smail</p>
+<p>Used in washing cloths</p>
+<p class="price">₹130</p>
+<button onclick="addToCart('Cloth soap',130)">Add to Cart</button>
+</div>
+
+
+<div class="product-card">
+<img src="images/scrubber.jpg" alt="scrubber">
+<h3>scrubber</h3>
+<p>Used for washing pots.</p>
+<p>make a pots clean.</p>
+<p class="price">₹160</p>
+<button onclick="addToCart('scrubber',160)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/paratuate.jpg" alt="paratuate">
+<h3>paratuate</h3>
+<p>Hair oil.</p>
+<p>Used for hair shiney.</p>
+<p class="price">₹45</p>
+<button onclick="addToCart('patatuate',45)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/plastic cup.jpg" alt="cup">
+<h3>cup</h3>
+<p>Tea cup.</p>
+<p>used for drinking tea.</p>
+<p class="price">₹20</p>
+<button onclick="addToCart('plastic cup',20)">Add to Cart</button>
+</div>
+
+
+<div class="product-card">
+<img src="images/surf.jpg" alt="surf">
+<h3>surf</h3>
+<p>fresh lequid.</p>
+<p>Used daily for washing cloths.</p>
+<p class="price">₹61</p>
+<button onclick="addToCart('surf',61)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/vim liquid.jpg" alt="vim liquid">
+<h3>pots washing liquid</h3>
+<p>Strong liquid</p>
+<p>Gives freshness.</p>
+<p class="price">₹109</p>
+<button onclick="addToCart('vim to pots',109)">Add to Cart</button>
+</div>
+
+
+<div class="product-card">
+<img src="images/halad.jpg" alt="halad powder">
+<h3>halad piwder</h3>
+<p>used in foods .</p>
+<p>Daily product.</p>
+<p class="price">₹10</p>
+<button onclick="addToCart('halad ',10)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/plastic plate.jpg" alt="plastic plate">
+<h3>plastic plate</h3>
+<p>used in small functions .</p>
+<p>easy to use.</p>
+<p class="price">₹40</p>
+<button onclick="addToCart('plastic plate',40)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/sunflower oil.jpg" alt="sunflower oil">
+<h3>sunflower oil</h3>
+<p>healthy.</p>
+<p>Good for cooking.</p>
+<p class="price">₹20</p>
+<button onclick="addToCart('Sunflower oil',20)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/zadu.jpg" alt="zadu">
+<h3>zadu</h3>
+<p>useful for cleaning house.</p>
+<p> strong.</p>
+<p class="price">₹20</p>
+<button onclick="addToCart('zadu',20)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/plastic bottle.jpg" alt="plastic bottle">
+<h3>steel bottle</h3>
+<p>used for water saving.</p>
+<p>Good for saving water.</p>
+<p class="price">₹20</p>
+<button onclick="addToCart('steel bottle',20)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/plastic mug.jpg" alt="plastic mug">
+<h3>plastic mug</h3>
+<p>daily product.</p>
+<p>used for daily work.</p>
+<p class="price">₹20</p>
+<button onclick="addToCart('plastic mug',20)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/shampoo.jpg" alt="shampoo">
+<h3>shampoo</h3>
+<p>healthy for hair.</p>
+<p>used for washing hair.</p>
+<p class="price">₹20</p>
+<button onclick="addToCart('shampoo',20)">Add to Cart</button>
+</div>
+
+</section>
+
+<footer>
+© 2025 Shri Balaji Supermarket
+</footer>
+
+<!-- Cart popup -->
+<div id="cart-popup" style="display:none;">
+  <div class="popup-overlay"></div>
+  <div class="popup-content">
+    <p id="popup-text">Added to cart</p>
+    <div style="margin-top:12px;">
+      <button id="view-cart-btn">View Cart</button>
+      <button id="continue-btn">Continue</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  #cart-popup{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:1500}
+  .popup-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.4)}
+  .popup-content{position:relative;background:#fff;padding:18px 20px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.25);max-width:320px;text-align:center}
+  .popup-content p{font-weight:600;color:#c61313;margin:0}
+  .popup-content button{margin:8px 6px;padding:8px 12px;border-radius:6px;border:none;cursor:pointer}
+  #view-cart-btn{background:#c61313;color:#fff}
+  #continue-btn{background:#eee}
+</style>
+
+<script>
+  function addToCart(name, price){
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let found = cart.find(item => item.name === name);
+
+    if(found){
+      found.quantity += 1;
+    } else {
+      cart.push({name:name, price:price, quantity:1});
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // show popup instead of immediate redirect
+    const popup = document.getElementById('cart-popup');
+    const popupText = document.getElementById('popup-text');
+    popupText.textContent = `${name} added to cart`;
+    popup.style.display = 'flex';
+
+    // auto-hide after 2.5s
+    const hideTimeout = setTimeout(()=>{ popup.style.display = 'none'; }, 2500);
+
+    document.getElementById('view-cart-btn').onclick = function(){
+      clearTimeout(hideTimeout);
+      window.location.href = 'cart.html';
+    };
+
+    document.getElementById('continue-btn').onclick = function(){
+      clearTimeout(hideTimeout);
+      popup.style.display = 'none';
+    };
+  }
+</script>
+
+<!-- Logout confirmation + feedback popup -->
+<div id="logout-modal" style="display:none;">
+  <div style="position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1501"></div>
+  <div style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;padding:18px;border-radius:8px;z-index:1502;text-align:center;max-width:320px;box-shadow:0 10px 30px rgba(0,0,0,0.25);">
+    <p style="font-weight:600;margin:0 0 12px;">Are you sure you want to logout?</p>
+    <div>
+      <button id="confirm-logout" style="background:#c61313;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;margin-right:8px;">Logout</button>
+      <button id="cancel-logout" style="background:#eee;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="loggedout-popup" style="display:none;">
+  <div style="position:fixed;inset:0;background:rgba(0,0,0,0.0);z-index:1510"></div>
+  <div style="position:fixed;left:50%;top:18%;transform:translateX(-50%);background:#fff;padding:12px 18px;border-radius:8px;z-index:1511;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,0.18);">
+    <p style="margin:0;color:#c61313;font-weight:700;">You have been logged out</p>
+  </div>
+</div>
+
+<script>
+// logout modal logic (works alongside addToCart script)
+document.getElementById('logout-link').addEventListener('click', function(e){
+  e.preventDefault();
+  document.getElementById('logout-modal').style.display = 'block';
+});
+document.getElementById('cancel-logout').addEventListener('click', function(){
+  document.getElementById('logout-modal').style.display = 'none';
+});
+document.getElementById('confirm-logout').addEventListener('click', function(){
+  fetch('/logout', { method: 'GET', credentials: 'same-origin' })
+    .finally(()=>{
+      document.getElementById('logout-modal').style.display = 'none';
+      document.getElementById('loggedout-popup').style.display = 'block';
+      setTimeout(()=>{ window.location.href = '/login'; }, 1800);
+    });
+});
+</script>
+
+</body>
+</html>

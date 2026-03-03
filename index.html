@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shri Balaji Supermarket - Home</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+/* Background */
+body{
+  background-image:url("images/bg.jpg");
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+}
+
+/* Header */
+header{
+  background:#c61313;
+  color:white;
+  text-align:center;
+  padding:1rem;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  overflow:hidden; /* important for moving text */
+}
+
+/* Moving Title */
+.moving-title{
+  font-size:2rem;
+  font-weight:bold;
+  white-space:nowrap;
+  display:inline-block;
+  animation: moveTitle 12s linear infinite;
+}
+
+@keyframes moveTitle{
+  0%{ transform:translateX(100%); }
+  100%{ transform:translateX(-100%); }
+}
+
+/* Navbar */
+nav{
+  background:#a50f0f;
+  text-align:center;
+  padding:0.8rem;
+}
+nav a{
+  color:#fff9c4;
+  margin:0 1rem;
+  text-decoration:none;
+  font-weight:600;
+}
+nav a.active,
+nav a:hover{
+  color:#ffd54f;
+  border-bottom:2px solid #ffd54f;
+  padding-bottom:2px;
+}
+
+/* Hero */
+.hero{
+  background-image:url("images/home-bg.jpg");
+  background-size:cover;
+  background-position:center;
+  text-align:center;
+  color:white;
+  padding:6rem 1rem;
+  position:relative;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,0.6),rgba(0,0,0,0.2));
+}
+.hero-content{
+  position:relative;
+  z-index:1;
+}
+.hero h1{
+  font-size:3rem;
+  margin-bottom:1rem;
+}
+.hero h2{
+  font-size:1.5rem;
+  font-weight:400;
+  color:#fff9c4;
+}
+.free-delivery{
+  font-weight:bold;
+  color:#ffd54f;
+  margin:1.5rem 0;
+}
+.hero a{
+  background:#ff3d00;
+  color:white;
+  padding:0.8rem 2rem;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:bold;
+}
+.hero a:hover{
+  background:#ffd54f;
+  color:#c61313;
+}
+
+/* Section Heading */
+.section-title{
+  text-align:center;
+  font-size:2rem;
+  color:#c61313;
+  margin-top:3rem;
+  margin-bottom:1rem;
+}
+.section-tagline{
+  text-align:center;
+  font-size:1.1rem;
+  color:#555;
+  margin-bottom:3rem;
+}
+
+/* Features */
+.features{
+  max-width:1100px;
+  margin:auto;
+  padding:0 1rem;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:2rem;
+}
+.feature-box{
+  background:white;
+  padding:2rem 1rem;
+  text-align:center;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+.feature-box h3{
+  color:#c61313;
+  margin-top:1rem;
+}
+
+/* Footer */
+footer{
+  background:#a50f0f;
+  color:white;
+  text-align:center;
+  padding:1.5rem;
+  margin-top:3rem;
+}
+
+/* Responsive */
+@media(max-width:600px){
+  .hero h1{font-size:2rem;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER WITH MOVING TITLE -->
+<header>
+  <h1 class="moving-title">Shri Balaji Supermarket</h1>
+</header>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="active">Home</a>
+  <a href="about.html">About</a>
+  <a href="products.html">Shop</a>
+  <a href="categories.html">Categories</a>
+  <a href="cart.html">Cart</a>
+  <a href="abc.html">Contact</a>
+  <a href="#" id="logout-link">Logout</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Fresh Groceries Every Day</h1>
+    <h2 id="tagline"></h2>
+    <p class="free-delivery">Free Delivery on All Orders!</p>
+    <a href="products.html">Shop Now</a>
+  </div>
+</section>
+
+<!-- FEATURES HEADING -->
+<h2 class="section-title">Why Choose Us?</h2>
+<p class="section-tagline">We provide quality products with fast and reliable service</p>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="feature-box">
+    <img src="images/best.jpg" width="100">
+    <h3>100% Warranty</h3>
+    <p>Customer satisfaction guaranteed.</p>
+  </div>
+
+  <div class="feature-box">
+    <img src="images/delivery.jpg" width="100">
+    <h3>Fast Service</h3>
+    <p>Quick billing & home delivery.</p>
+  </div>
+
+  <div class="feature-box">
+    <img src="images/quality.jpg" width="100">
+    <h3>Best Quality</h3>
+    <p>Branded grocery items.</p>
+  </div>
+</section>
+
+//<footer>
+  <p>© 2026 Shri Balaji Supermarket</p>
+  <p>Contact: <a href="tel:9876543210">9876543210</a> | <a href="mailto:balajisupermarket@gmail.com">balajisupermarket@gmail.com</a></p>
+</footer>
+
+<!-- TAGLINE SCRIPT -->
+<script>
+const taglines=[
+  "Your One-Stop Shop for Fresh Groceries",
+  "Fresh Vegetables & Fruits Everyday",
+  "Shop Online with Free Home Delivery"
+];
+let i=0;
+const tagline=document.getElementById("tagline");
+function changeTagline(){
+  tagline.textContent=taglines[i];
+  i=(i+1)%taglines.length;
+}
+changeTagline();
+setInterval(changeTagline,3000);
+</script>
+
+<!-- Logout confirmation + feedback popup -->
+<div id="logout-modal" style="display:none;">
+  <div style="position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1200"></div>
+  <div style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;padding:18px;border-radius:8px;z-index:1201;text-align:center;max-width:320px;box-shadow:0 10px 30px rgba(0,0,0,0.25);">
+    <p style="font-weight:600;margin:0 0 12px;">Are you sure you want to logout?</p>
+    <div>
+      <button id="confirm-logout" style="background:#c61313;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;margin-right:8px;">Logout</button>
+      <button id="cancel-logout" style="background:#eee;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="loggedout-popup" style="display:none;">
+  <div style="position:fixed;inset:0;background:rgba(0,0,0,0.0);z-index:1210"></div>
+  <div style="position:fixed;left:50%;top:20%;transform:translateX(-50%);background:#fff;padding:12px 18px;border-radius:8px;z-index:1211;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,0.18);">
+    <p style="margin:0;color:#c61313;font-weight:700;">You have been logged out</p>
+  </div>
+</div>
+
+<script>
+document.getElementById('logout-link').addEventListener('click', function(e){
+  e.preventDefault();
+  document.getElementById('logout-modal').style.display = 'block';
+});
+document.getElementById('cancel-logout').addEventListener('click', function(){
+  document.getElementById('logout-modal').style.display = 'none';
+});
+document.getElementById('confirm-logout').addEventListener('click', function(){
+  // call server logout, then show feedback and redirect to /login
+  fetch('/logout', { method: 'GET', credentials: 'same-origin' })
+    .finally(()=>{
+      document.getElementById('logout-modal').style.display = 'none';
+      document.getElementById('loggedout-popup').style.display = 'block';
+      setTimeout(()=>{ window.location.href = '/login'; }, 1800);
+    });
+});
+</script>
+
+</body>
+</html>

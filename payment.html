@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins', sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#43cea2,#185a9d);
+    }
+
+    .payment-box{
+      background:#fff;
+      padding:30px;
+      width:100%;
+      max-width:420px;
+      border-radius:12px;
+      box-shadow:0 15px 35px rgba(0,0,0,.2);
+    }
+
+    .payment-box h2{
+      text-align:center;
+      margin-bottom:20px;
+      color:#333;
+    }
+
+    label{
+      font-size:14px;
+      font-weight:500;
+      color:#444;
+    }
+
+    select, input{
+      width:100%;
+      padding:12px;
+      margin-top:6px;
+      margin-bottom:16px;
+      border-radius:8px;
+      border:1px solid #ccc;
+      font-size:14px;
+    }
+
+    select:focus, input:focus{
+      outline:none;
+      border-color:#43cea2;
+    }
+
+    .submit-btn{
+      width:100%;
+      padding:12px;
+      background:#43cea2;
+      color:#fff;
+      border:none;
+      border-radius:8px;
+      font-size:16px;
+      font-weight:600;
+      cursor:pointer;
+      transition:.3s;
+    }
+
+    .submit-btn:hover{
+      background:#36b38a;
+    }
+
+    .success-msg{
+      margin-top:20px;
+      color:#fff;
+      font-size:22px;
+      text-align:center;
+    }
+
+    .small-btn{
+      margin-top:10px;
+      width:120px;
+      padding:8px;        
+      font-size:14px;     
+      background:#ffffff;
+      color:#185a9d;
+      border:none;
+      border-radius:20px;
+      cursor:pointer;
+      transition:.3s;
+    }
+
+    .small-btn:hover{
+      background:#e6e6e6;
+    }
+
+    /* QR Section */
+    #qrSection{
+      display:none;
+      margin-top:18px;
+      text-align:center;
+    }
+
+    #qrSection canvas{
+      margin:10px auto;
+      display:block;
+    }
+
+    #qrInfo{
+      font-size:13px;
+      color:#555;
+      margin-top:6px;
+      word-break:break-word;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="payment-box">
+    <h2>Payment Form</h2>
+
+    <form id="paymentForm" action="/api/payment" method="POST">
+
+      <label>Payment Method</label>
+      <select name="payment" required>
+        <option value="">Select</option>
+        <option value="card">Card</option>
+        <option value="phonepe">PhonePe</option>
+        <option value="googlepay">Google Pay</option>
+        <option value="cod">Cash On Delivery</option>
+      </select>
+
+      <input type="text" name="cardName" placeholder="Card Holder Name">
+      <input type="text" name="cardNumber" placeholder="Card Number">
+      <input type="text" name="expiry" placeholder="MM/YY">
+      <input type="password" name="cvv" placeholder="CVV">
+
+      <input type="text" name="phonepeNumber" placeholder="PhonePe Number">
+      <input type="text" name="googlepayNumber" placeholder="Google Pay Number">
+
+      <input type="hidden" name="orderId" id="orderIdField">
+      <input type="hidden" name="amount" id="amountField">
+      <button type="submit" class="submit-btn">Submit Payment</button>
+
+      <div id="qrSection">
+        <h3>Scan to Pay</h3>
+        <canvas id="qrCanvas"></canvas>
+        <div id="qrInfo"></div>
+        <button type="button" id="confirmPaid" class="small-btn">I've Paid — Confirm</button>
+      </div>
+    </form>
+  </div>
+
+  <h2 class="success-msg">Payment Successful 🎉</h2>
+  <button class="small-btn" onclick="goHome()">Go Home</button>
+
+
+<script>
+// prefill hidden orderId/amount from query string (if present)
+(function(){
+  try{
+    const params = new URLSearchParams(window.location.search);
+    const oid = params.get('orderId');
+    const amt = params.get('amount');
+    if(oid) document.getElementById('orderIdField').value = oid;
+    if(amt) document.getElementById('amountField').value = amt;
+  }catch(e){}
+})();
+function goHome(){
+  window.location.href="index.html";
+}
+</script>
+
+<!-- QR library -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+
+<script>
+  // Payment UI behaviour + QR generation
+  ;(function(){
+  const form = document.getElementById('paymentForm');
+  const methodSel = form.querySelector('select[name="payment"]');
+  const cardFields = ['cardName','cardNumber','expiry','cvv'].map(n=>form.querySelector(`[name="${n}"]`));
+  const phonepeField = form.querySelector('[name="phonepeNumber"]');
+  const gpayField = form.querySelector('[name="googlepayNumber"]');
+  const qrSection = document.getElementById('qrSection');
+  const qrCanvas = document.getElementById('qrCanvas');
+  const qrInfo = document.getElementById('qrInfo');
+  const confirmBtn = document.getElementById('confirmPaid');
+
+  function hideAllExtra(){
+    cardFields.forEach(f=>f.style.display='block');
+    phonepeField.style.display = 'block';
+    gpayField.style.display = 'block';
+    qrSection.style.display = 'none';
+  }
+
+  function showForMethod(method){
+    // hide all extras first
+    cardFields.forEach(f=>f.style.display='none');
+    phonepeField.style.display = 'none';
+    gpayField.style.display = 'none';
+    qrSection.style.display = 'none';
+
+    if(method === 'card'){
+      cardFields.forEach(f=>f.style.display='block');
+    } else if(method === 'phonepe'){
+      phonepeField.style.display = 'block';
+      generateQRFor('phonepe');
+    } else if(method === 'googlepay'){
+      gpayField.style.display = 'block';
+      generateQRFor('googlepay');
+    } else if(method === 'cod'){
+      // nothing extra for COD
+    }
+  }
+
+  function getAmount(){
+    return document.getElementById('amountField').value || '';
+  }
+
+  function getOrderId(){
+    return document.getElementById('orderIdField').value || '';
+  }
+
+  function generateQRFor(type){
+    const amt = getAmount();
+    const oid = getOrderId();
+    let number = '';
+    let label = '';
+    if(type === 'phonepe'){
+      number = phonepeField.value || phonepeField.placeholder || '';
+      label = 'PhonePe Number';
+    } else {
+      number = gpayField.value || gpayField.placeholder || '';
+      label = 'Google Pay Number';
+    }
+
+    let payload = number;
+    if(number){
+      payload = `upi://pay?pa=${encodeURIComponent(number)}&pn=${encodeURIComponent('Balaji Super')}` + (amt?`&am=${encodeURIComponent(amt)}`:'') + (oid?`&tn=${encodeURIComponent('Order '+oid)}`:'');
+    } else {
+      payload = `tel:${encodeURIComponent(number)}`;
+    }
+
+    qrInfo.textContent = `${label}: ${number || '(enter number above)'}; Amount: ${amt || '(not set)'}; Scan using your UPI app.`;
+    qrSection.style.display = 'block';
+
+    try{
+      QRCode.toCanvas(qrCanvas, payload, { width: 220 }, function (error) {
+        if (error) {
+          console.error(error);
+          qrInfo.textContent = 'QR generation failed';
+        }
+      });
+    }catch(e){
+      console.error('QR lib error', e);
+    }
+  }
+
+  phonepeField.addEventListener('input', ()=>{
+    if(methodSel.value === 'phonepe') generateQRFor('phonepe');
+  });
+  gpayField.addEventListener('input', ()=>{
+    if(methodSel.value === 'googlepay') generateQRFor('googlepay');
+  });
+
+  methodSel.addEventListener('change', e=>{
+    showForMethod(e.target.value);
+  });
+
+  async function handlePaymentSubmit(e){
+    if(e && e.preventDefault) e.preventDefault();
+
+    // set status
+    let statusField = form.querySelector('[name="status"]');
+    if(!statusField){
+      statusField = document.createElement('input');
+      statusField.type = 'hidden';
+      statusField.name = 'status';
+      form.appendChild(statusField);
+    }
+    statusField.value = 'Completed';
+
+    // collect form data
+    const fd = new FormData(form);
+    const payload = {};
+    for(const [k,v] of fd.entries()) payload[k]=v;
+
+    try{
+      const res = await fetch('/api/payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json().catch(()=>({}));
+      if(res.ok){
+        // Save returned order/payment snapshot for thank-you page to read
+        const returnedOrder = data.order || data.data || (data.data && data.data.order) || null;
+        const returnedPayment = data.data || (data.data && data.data._id) ? data.data : (data.paymentId? { _id: data.paymentId } : null);
+        try{ if(returnedOrder) localStorage.setItem('lastOrder', JSON.stringify(returnedOrder)); }catch(e){}
+        try{ if(returnedPayment) localStorage.setItem('lastPayment', JSON.stringify(returnedPayment)); }catch(e){}
+
+        // show success popup (instead of navigating away)
+        const redirectId = data.orderId || payload.orderId || (returnedOrder && (returnedOrder.orderId || returnedOrder._id)) || '';
+        const paymentId = data.paymentId || (returnedPayment && returnedPayment._id) || '';
+        showPaymentModal({ orderId: redirectId, paymentId });
+      } else {
+        alert(data.message || data.error || 'Payment save failed');
+      }
+    }catch(err){
+      console.error('Payment submit error', err);
+      alert('Network/server error');
+    }
+  }
+
+  confirmBtn.addEventListener('click', handlePaymentSubmit);
+
+  // also intercept regular form submission
+  form.addEventListener('submit', handlePaymentSubmit);
+
+  // initialize
+  hideAllExtra();
+  methodSel.dispatchEvent(new Event('change'));
+})();
+</script>
+
+<!-- Payment success modal -->
+<style>
+  #paymentModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center;z-index:9999}
+  #paymentModal .box{background:#fff;padding:20px;border-radius:12px;max-width:420px;width:90%;text-align:center}
+  #paymentModal h3{margin-bottom:8px}
+  #paymentModal p{color:#333;margin:8px 0}
+  #paymentModal .actions{display:flex;gap:10px;justify-content:center;margin-top:12px}
+  #paymentModal .actions button{padding:8px 14px;border-radius:8px;border:none;cursor:pointer}
+  #paymentModal .primary{background:#43cea2;color:#fff}
+  #paymentModal .secondary{background:#eee}
+</style>
+
+<div id="paymentModal">
+  <div class="box">
+    <h3>Payment Saved ✅</h3>
+    <p id="pmMsg">Your payment was recorded.</p>
+    <div class="actions">
+      <button class="primary" id="pmHome">Go Home</button>
+      <button class="secondary" id="pmClose">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function showPaymentModal({orderId, paymentId}){
+  const modal = document.getElementById('paymentModal');
+  const msg = document.getElementById('pmMsg');
+  let text = 'Your payment was recorded.';
+  if(orderId) text += ` Order ID: ${orderId}.`;
+  if(paymentId) text += ` Payment ID: ${paymentId}.`;
+  msg.textContent = text;
+  modal.style.display = 'flex';
+}
+document.getElementById('pmClose').addEventListener('click', ()=>{
+  document.getElementById('paymentModal').style.display='none';
+});
+document.getElementById('pmHome').addEventListener('click', ()=>{
+  window.location.href = 'index.html';
+});
+</script>
+
+</body>
+</html>

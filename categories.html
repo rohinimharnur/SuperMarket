@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shri Balaji Supermarket - Categories</title>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif;}
+body {
+    background: linear-gradient(135deg, #ffe6e6, #fff5f5);
+}
+
+/* Header */
+header {
+    background-color:#c61313;
+    color:white;
+    text-align:center;
+    padding:1rem;
+    font-size:2rem;
+    font-weight:bold;
+}
+
+/* Navigation */
+nav {
+    background-color:#a50f0f;
+    text-align:center;
+    padding:0.8rem;
+}
+nav a {
+    color:#fff5f5;
+    margin:0 1rem;
+    text-decoration:none;
+    font-weight:600;
+    transition: color 0.3s;
+}
+nav a:hover, nav a.active {color:#ffb3b3;}
+
+/* Page Title */
+.category-title {
+    text-align:center;
+    padding:3rem 1rem 1rem 1rem;
+}
+.category-title h1 {
+    color:#c61313;
+    font-size:2.5rem;
+    margin-bottom:0.5rem;
+    text-shadow: 1px 1px 2px #aa0000;
+}
+.category-title p {color:#555; font-size:1.1rem;}
+
+/* Search bar */
+.search-box {
+    text-align:center;
+    margin-bottom:2rem;
+}
+.search-box input {
+    padding:0.6rem 1rem;
+    width:250px;
+    border-radius:25px;
+    border:1px solid #c61313;
+    outline:none;
+    transition: all 0.3s;
+}
+.search-box input:focus {box-shadow: 0 0 8px #c61313;}
+
+/* Category Cards */
+.categories {
+    max-width:1200px;
+    margin:auto;
+    padding:1rem;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:1.8rem;
+    position: relative;
+}
+.category-card {
+    position:relative;
+    background-color:white;
+    border-radius:15px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.15);
+    padding:2rem 1rem;
+    text-align:center;
+    cursor:pointer;
+    transition: transform 0.4s, box-shadow 0.4s;
+}
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow:0 14px 30px rgba(0,0,0,0.25);
+}
+.category-card img {
+    width:100px;
+    height:100px;
+    object-fit:contain;
+    margin-bottom:1rem;
+    transition: transform 0.3s;
+}
+.category-card:hover img {transform: scale(1.1);}
+.category-card h3 {
+    margin-top:0.5rem;
+    color:#c61313;
+    font-size:1.2rem;
+    transition: color 0.3s;
+}
+.category-card:hover h3 {color:#ff6666;}
+.category-card p {font-size:0.95rem; color:#555;}
+
+/* Badge */
+.badge {
+    position:absolute;
+    top:10px;
+    right:10px;
+    background-color:#ff3333;
+    color:white;
+    padding:5px 10px;
+    border-radius:12px;
+    font-size:0.8rem;
+    font-weight:bold;
+}
+
+/* Footer */
+footer {
+    background-color:#a50f0f;
+    color:white;
+    text-align:center;
+    padding:1rem;
+    margin-top:3rem;
+}
+footer p {margin:5px 0;}
+footer .social-icons a {
+    color:white;
+    margin:0 0.5rem;
+    font-size:1.2rem;
+    transition: color 0.3s;
+}
+footer .social-icons a:hover {color:#ffb3b3;}
+
+/* Responsive */
+@media(max-width:600px){
+    .search-box input {width:80%;}
+    .category-title h1 {font-size:2rem;}
+}
+</style>
+</head>
+
+<body>
+
+<header>Shri Balaji Supermarket</header>
+
+<nav>
+<a href="index.html" class="active">Home</a>
+  <a href="about.html">About</a>
+  <a href="products.html">Shop</a>
+  <a href="categories.html">Categories</a>
+  <a href="cart.html">Cart</a>
+  <a href="abc.html">Contact</a></nav>
+<section class="category-title">
+  <h1>Product Categories</h1>
+  <p>Choose from our wide range of grocery categories</p>
+</section>
+
+<!-- Search -->
+<div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search category..." onkeyup="filterCategories()">
+</div>
+
+<section class="categories" id="categoriesContainer">
+  <a href="foodgrains.html" class="category-link">
+    <div class="category-card">
+      <span class="badge">Popular</span>
+      <img src="images/Foodgrains.jpg" alt="Foodgrains">
+      <h3>Foodgrains & Pulses</h3>
+      <p>Rice, wheat, dal and pulses</p>
+    </div>
+  </a>
+
+  <a href="dailyproducts.html" class="category-link">
+    <div class="category-card">
+      <span class="badge">Natural</span>
+      <img src="images/Dairy.jpg" alt="Dairy">
+      <h3>Dairy Products</h3>
+      <p>Milk, curd, butter and cheese</p>
+    </div>
+  </a>
+<a href="household.html" class="category-link">
+  <div class="category-card">
+    <span class="badge">Home Care</span>
+    <img src="images/Household Items.jpg" alt="Household Items">
+    <h3>Household Items</h3>
+    <p>Cleaning supplies, kitchen tools & daily home essentials</p>
+  </div>
+</a>
+
+<a href="houseitems.html" class="category-link">
+  <div class="category-card">
+    <span class="badge">House Essentials</span>
+    <img src="images/Household.jpg" alt="Household Items">
+    <h3>Household Items</h3>
+    <p>Cleaning products, kitchen tools & daily home needs</p>
+  </div>
+</a>
+
+  <a href="snacks.html" class="category-link">
+    <div class="category-card">
+      <span class="badge">New</span>
+      <img src="images/Bakery.jpg" alt="Bakery" width="180">
+      <h3>Bakery & Snacks</h3>
+      <p>Bread, biscuits and snacks</p>
+    </div>
+  </a>
+
+</section>
+
+<footer>
+  <p>© 2025 Shri Balaji Supermarket</p>
+  <p>Contact: 9876543210 | balajisupermarket@gmail.com</p>
+  <div class="social-icons">
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</footer>
+
+<script>
+function filterCategories(){
+  let input = document.getElementById("searchInput").value.toLowerCase();
+  let categories = document.getElementsByClassName("category-link");
+  for(let i=0; i<categories.length; i++){
+    let text = categories[i].textContent.toLowerCase();
+    if(text.indexOf(input) > -1){
+      categories[i].style.display = "";
+    } else {
+      categories[i].style.display = "none";
+    }
+  }
+}
+</script>
+
+</body>
+</html>

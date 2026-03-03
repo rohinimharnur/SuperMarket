@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foodgrains & Pulses - Shri Balaji Supermarket</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif;}
+body{background:#f4f4f4;}
+header{background:#b52c1d;color:white;text-align:center;padding:15px;font-size:26px;font-weight:bold;position:sticky;top:0;z-index:100;}
+nav{background:#c61313;text-align:center;padding:10px;position:sticky;top:55px;z-index:99;}
+nav a{color:white;margin:0 15px;text-decoration:none;font-weight:bold;}
+nav a:hover{color:#ffd54f;text-shadow:1px 1px 2px #000;}
+.title{text-align:center;padding:20px;}
+.breadcrumb{text-align:center;margin-bottom:15px;color:#555;}
+.search-box{text-align:center;margin-bottom:20px;}
+.search-box input{padding:8px;width:220px;border-radius:5px;border:1px solid #ccc;}
+.products{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding:20px;}
+.product-card{background:white;padding:15px;border-radius:10px;text-align:center;box-shadow:0 4px 10px rgba(0,0,0,0.1);transition:0.3s;}
+.product-card:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+.product-card img{width:120px;height:120px;object-fit:contain;}
+.product-card h3{margin:10px 0;color:#c61313;}
+.product-card p{font-size:14px;margin:4px 0;color:#444;}
+.price{font-weight:bold;margin:8px 0;color:#b52c1d;font-size:16px;}
+button{background:#c61313;color:white;border:none;padding:8px 15px;border-radius:5px;cursor:pointer;transition:0.2s;}
+button:hover{background:#a50f0f;transform:scale(1.05);}
+footer{background:#b52c1d;color:white;text-align:center;padding:15px;margin-top:30px;}
+@media(max-width:600px){.product-card img{width:100px;height:100px;}button{padding:6px 12px;}}
+</style>
+</head>
+
+<body>
+
+<header>Shri Balaji Supermarket</header>
+
+<nav>
+  <a href="index.html" class="active">Home</a>
+  <a href="about.html">About</a>
+  <a href="products.html">Shop</a>
+  <a href="categories.html">Categories</a>
+  <a href="cart.html">Cart</a>
+  <a href="abc.html">Contact</a>
+</nav>
+
+<div class="title"><h2>Foodgrains & Pulses</h2></div>
+<p class="breadcrumb">Home > Products > Foodgrains & Pulses</p>
+
+<div class="search-box">
+  <input type="text" id="search" placeholder="Search product..." onkeyup="searchProduct()">
+</div>
+
+<section class="products">
+
+<!-- RICE -->
+<div class="product-card"><img src="images/rice.jpg" alt="Basmati Rice"><h3>Basmati Rice</h3><p>Long grain aromatic rice.</p><p>Used for biryani.</p><p class="price">₹323 / kg</p><button onclick="addToCart('Basmati Rice',323)">Add to Cart</button></div>
+<div class="product-card"><img src="images/kolam rice.jpg" alt="Kolam Rice"><h3>Kolam Rice</h3><p>Soft daily use rice.</p><p>Easy to digest.</p><p class="price">₹104 / kg</p><button onclick="addToCart('Kolam Rice',104)">Add to Cart</button></div>
+<div class="product-card"><img src="images/indrayani rice.jpg" alt="Indrayani Rice"><h3>Indrayani Rice</h3><p>Fragrant Maharashtrian rice.</p><p>Used in special meals.</p><p class="price">₹65 / kg</p><button onclick="addToCart('Indrayani Rice',65)">Add to Cart</button></div>
+
+<!-- GRAINS -->
+<div class="product-card"><img src="images/wheat.jpg" alt="Wheat"><h3>Wheat</h3><p>Main grain for chapati.</p><p>Gives energy.</p><p class="price">₹219 / kg</p><button onclick="addToCart('Wheat',219)">Add to Cart</button></div>
+<div class="product-card"><img src="images/jawar.jpg" alt="Jawar"><h3>Jawar</h3><p>Healthy millet grain.</p><p>Good for digestion.</p><p class="price">₹150 / kg</p><button onclick="addToCart('Jawar',150)">Add to Cart</button></div>
+<div class="product-card"><img src="images/bajra.jpg" alt="Bajra"><h3>Bajra</h3><p>Rich in fiber.</p><p>Keeps body warm.</p><p class="price">₹85 / kg</p><button onclick="addToCart('Bajra',85)">Add to Cart</button></div>
+<div class="product-card"><img src="images/maka.jpeg" alt="Maize / Corn"><h3>Maize / Corn</h3><p>Used in bhakri.</p><p>Good energy source.</p><p class="price">₹249 / kg</p><button onclick="addToCart('Maize / Corn',249)">Add to Cart</button></div>
+
+<!-- PULSES -->
+<div class="product-card"><img src="images/toor dal.jpg" alt="Toor Dal"><h3>Toor Dal</h3><p>Protein rich dal.</p><p>Used daily.</p><p class="price">₹122 / kg</p><button onclick="addToCart('Toor Dal',122)">Add to Cart</button></div>
+<div class="product-card"><img src="images/chana dal.jpg" alt="Chana Dal"><h3>Chana Dal</h3><p>High protein pulse.</p><p>Used in snacks.</p><p class="price">₹86 / kg</p><button onclick="addToCart('Chana Dal',86)">Add to Cart</button></div>
+<div class="product-card"><img src="images/moong dal.jpg" alt="Moong Dal"><h3>Moong Dal</h3><p>Light and healthy dal.</p><p>Easy digestion.</p><p class="price">₹154 / kg</p><button onclick="addToCart('Moong Dal',154)">Add to Cart</button></div>
+<div class="product-card"><img src="images/masoor dal.jpg" alt="Masoor Dal"><h3>Masoor Dal</h3><p>Red lentil dal.</p><p>Protein rich.</p><p class="price">₹83 / kg</p><button onclick="addToCart('Masoor Dal',83)">Add to Cart</button></div>
+<div class="product-card"><img src="images/urad dal.jpg" alt="Urad Dal"><h3>Urad Dal</h3><p>Used for papad.</p><p>Good nutrition.</p><p class="price">₹98 / kg</p><button onclick="addToCart('Urad Dal',98)">Add to Cart</button></div>
+<div class="product-card"><img src="images/green gram.jpg" alt="Green Gram"><h3>Green Gram</h3><p>Whole moong beans.</p><p>Healthy food.</p><p class="price">₹130 / kg</p><button onclick="addToCart('Green Gram',130)">Add to Cart</button></div>
+<div class="product-card"><img src="images/black gram.jpg" alt="Black Gram"><h3>Black Gram</h3><p>Used in dal.</p><p>Protein rich.</p><p class="price">₹130 / kg</p><button onclick="addToCart('Black Gram',130)">Add to Cart</button></div>
+<div class="product-card"><img src="images/chhole.jpg" alt="Chickpeas"><h3>Chickpeas</h3><p>Used in chole.</p><p>High protein.</p><p class="price">₹159 / kg</p><button onclick="addToCart('Chickpeas',159)">Add to Cart</button></div>
+<div class="product-card"><img src="images/rajma.jpg" alt="Rajma"><h3>Rajma</h3><p>Used in curry.</p><p>Good protein.</p><p class="price">₹167 / kg</p><button onclick="addToCart('Rajma',167)">Add to Cart</button></div>
+<div class="product-card"><img src="images/chavali.jpg" alt="Cowpea"><h3>Cowpea</h3><p>Also called chawli.</p><p>Healthy pulse.</p><p class="price">₹105 / kg</p><button onclick="addToCart('Cowpea',105)">Add to Cart</button></div>
+<div class="product-card"><img src="images/mataki.jpg" alt="Moth Beans"><h3>Moth Beans</h3><p>Used in usal.</p><p>Protein rich.</p><p class="price">₹155 / kg</p><button onclick="addToCart('Moth Beans',155)">Add to Cart</button></div>
+
+</section>
+
+<footer>© 2025 Shri Balaji Supermarket</footer>
+
+<script>
+function addToCart(name, price){
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let found = cart.find(item => item.name === name);
+
+  if(found){
+    found.quantity += 1;
+  } else {
+    cart.push({name:name, price:price, quantity:1});
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  // ✅ Direct Cart Page Navigation
+  window.location.href = "cart.html";
+}
+</script>
+
+
+</body>
+</html>

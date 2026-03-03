@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins', sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#43cea2,#185a9d);
+    }
+
+    .payment-box{
+      background:#fff;
+      padding:30px;
+      width:100%;
+      max-width:420px;
+      border-radius:12px;
+      box-shadow:0 15px 35px rgba(0,0,0,.2);
+    }
+
+    .payment-box h2{
+      text-align:center;
+      margin-bottom:20px;
+      color:#333;
+    }
+
+    label{
+      font-size:14px;
+      font-weight:500;
+      color:#444;
+    }
+
+    select, input{
+      width:100%;
+      padding:12px;
+      margin-top:6px;
+      margin-bottom:16px;
+      border-radius:8px;
+      border:1px solid #ccc;
+      font-size:14px;
+    }
+
+    select:focus, input:focus{
+      outline:none;
+      border-color:#43cea2;
+    }
+
+    button{
+      width:100%;
+      padding:12px;
+      background:#43cea2;
+      color:#fff;
+      border:none;
+      border-radius:8px;
+      font-size:16px;
+      font-weight:600;
+      cursor:pointer;
+      transition:.3s;
+    }
+
+    button:hover{
+      background:#36b38a;
+    }
+
+    .note{
+      font-size:12px;
+      color:#777;
+      margin-top:12px;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="payment-box">
+    <h2>Payment Form</h2>
+
+    <form id="paymentForm" action="/api/payment" method="POST">
+
+      <label>Payment Method</label>
+      <select name="payment" required>
+        <option value="">Select</option>
+        <option value="card">Card</option>
+        <option value="phonepe">PhonePe</option>
+        <option value="googlepay">Google Pay</option>
+        <option value="cod">Cash On Delivery</option>
+      </select>
+
+      <input type="text" name="cardName" placeholder="Card Holder Name">
+      <input type="text" name="cardNumber" placeholder="Card Number">
+      <input type="text" name="expiry" placeholder="MM/YY">
+      <input type="password" name="cvv" placeholder="CVV">
+
+      <input type="text" name="phonepeNumber" placeholder="PhonePe Number">
+      <input type="text" name="googlepayNumber" placeholder="Google Pay Number">
+
+      <input type="hidden" name="orderId" id="orderIdField">
+      <input type="hidden" name="amount" id="amountField">
+      <button type="submit">Submit Payment</button>
+    </form>
+
+    <p class="note">⚠️ Demo purpose only. Do not enter real card details.</p>
+  </div>
+<h2>Payment Successful 🎉</h2>
+<button onclick="goHome()">Go Home</button>
+
+<script>
+function goHome(){
+  window.location.href="index.html";
+}
+</script>
+// prefill hidden orderId/amount from query string (if present)
+(function(){
+  try{
+    const params = new URLSearchParams(window.location.search);
+    const oid = params.get('orderId');
+    const amt = params.get('amount');
+    if(oid) document.getElementById('orderIdField').value = oid;
+    if(amt) document.getElementById('amountField').value = amt;
+  }catch(e){}
+})();
+</script>
+</body>
+</html>

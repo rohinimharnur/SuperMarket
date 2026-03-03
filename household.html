@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Household Items - Shri Balaji Supermarket</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+    body{
+      background:#f4f4f4;
+    }
+    header{
+      background:#111;
+      color:white;
+      text-align:center;
+      padding:15px;
+      font-size:26px;
+    }
+    nav{
+      background:#c613c6;
+      text-align:center;
+      padding:10px;
+    }
+    nav a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+    .title{
+      text-align:center;
+      padding:20px;
+    }
+    .products{
+      max-width:1200px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+      padding:20px;
+    }
+    .product-card{
+      background:white;
+      padding:15px;
+      border-radius:10px;
+      text-align:center;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
+    .product-card img{
+      width:120px;
+      height:120px;
+      object-fit:contain;
+    }
+    .product-card h3{
+      margin:10px 0;
+      color:#2e7d32;
+    }
+    .product-card p{
+      font-size:14px;
+      margin:4px 0;
+    }
+    .price{
+      font-weight:bold;
+      margin:8px 0;
+    }
+    button{
+      background:#2e7d32;
+      color:white;
+      border:none;
+      padding:8px 15px;
+      border-radius:5px;
+      cursor:pointer;
+    }
+    button:hover{
+      background:#1b5e20;
+    }
+    footer{
+      background:#1b5e20;
+      color:white;
+      text-align:center;
+      padding:15px;
+      margin-top:30px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>Shri Balaji Supermarket</header>
+
+<nav>
+  <a href="index.html" class="active">Home</a>
+  <a href="about.html">About</a>
+  <a href="products.html">Shop</a>
+  <a href="categories.html">Categories</a>
+  <a href="cart.html">Cart</a>
+  <a href="abc.html">Contact</a>
+</nav>
+
+<div class="title">
+  <h2>Household Items</h2>
+</div>
+
+<section class="products">
+
+  <!-- Dishwashing Liquid -->
+  <div class="product-card">
+    <img src="images/vim.jpg" alt="Dishwashing Liquid">
+    <h3>Dishwashing Liquid Vim</h3>
+    <p>Removes tough grease from utensils.</p>
+    <p>Safe for daily use.</p>
+    <p class="price">₹120</p>
+    <button onclick="addToCart('Dishwashing Liquid Vim',120)">Add to Cart</button>
+  </div>
+
+<!-- Export Soap -->
+<div class="product-card">
+  <img src="images/xpert.jpg" alt="Export Soap">
+  <h3>Xpert Soap</h3>
+  <p>Premium quality soap imported for smooth and soft skin.</p>
+  <p class="price">₹120 / piece</p>
+  <button onclick="addToCart('Xpert Soap',120)">Add to Cart</button>
+</div>
+
+
+  <!-- Toilet Cleaner -->
+  <div class="product-card">
+    <img src="images/harpic.jpg" alt="Toilet Cleaner">
+    <h3> Harpic Toilet Cleaner</h3>
+    <p>Removes stains and germs from toilet.</p>
+    <p>Fresh fragrance after cleaning.</p>
+    <p class="price">₹130</p>
+    <button onclick="addToCart(' Harpic Toilet Cleaner',130)">Add to Cart</button>
+  </div>
+
+  <!-- Laundry Detergent -->
+  <div class="product-card">
+    <img src="images/surf.jpg" alt="Laundry Detergent">
+    <h3> Surf Excel Laundry Detergent</h3>
+    <p>Removes tough stains from clothes.</p>
+    <p>Gentle on fabric.</p>
+    <p class="price">₹200</p>
+    <button onclick="addToCart('Surf Excel Laundry Detergent',200)">Add to Cart</button>
+  </div>
+
+<!-- Plastic Bottle -->
+<div class="product-card">
+  <img src="images/plasticbottle.jpg" alt="Plastic Bottle">
+  <h3>Plastic Bottle</h3>
+  <p>Durable and reusable plastic bottle for water or beverages.</p>
+  <p class="price">₹80 / piece</p>
+  <button onclick="addToCart('Plastic Bottle',80)">Add to Cart</button>
+</div>
+
+
+  <!-- Broom -->
+  <div class="product-card">
+    <img src="images/zadu.jpg" alt="Broom">
+    <h3>Broom</h3>
+    <p>Lightweight and strong broom.</p>
+    <p>Makes cleaning easier.</p>
+    <p class="price">₹80</p>
+    <button onclick="addToCart('Broom',80)">Add to Cart</button>
+  </div>
+
+<!-- Plastic Mug -->
+<div class="product-card">
+  <img src="images/plastic mug.jpg" alt="Plastic Mug">
+  <h3>Plastic Mug</h3>
+  <p>Lightweight and durable plastic mug, perfect for daily beverages.</p>
+  <p class="price">₹60 / piece</p>
+  <button onclick="addToCart('Plastic Mug',60)">Add to Cart</button>
+</div>
+
+
+<!-- Plastic Plate -->
+<div class="product-card">
+  <img src="images/plastic plate.jpg" alt="Plastic Plate">
+  <h3>Plastic Plate</h3>
+  <p>Durable and lightweight plastic plates, ideal for daily use or parties.</p>
+  <p class="price">₹70 / pack of 5</p>
+  <button onclick="addToCart('Plastic Plate',70)">Add to Cart</button>
+</div>
+
+
+<!-- LED Bulb -->
+<div class="product-card">
+  <img src="images/bulb.jpg" alt="LED Bulb">
+  <h3>LED Bulb</h3>
+  <p>Energy-efficient, long-lasting LED bulb for home lighting.</p>
+  <p class="price">₹120</p>
+  <button onclick="addToCart('LED Bulb',120)">Add to Cart</button>
+</div>
+
+
+<div class="product-card">
+    <img src="images/comfort.jpg" alt="Fabric Softener">
+    <h3>Fabric Softener Comfort</h3>
+    <p>Keeps clothes soft and fresh after washing.</p>
+    <p class="price">₹140</p>
+    <button onclick="addToCart('Fabric Softener Comfort',140)">Add to Cart</button>
+  </div>
+
+  <!-- Batteries -->
+  <div class="product-card">
+    <img src="images/cell.jpg" alt="Batteries">
+    <h3>Batteries</h3>
+    <p>Long-lasting power for devices.</p>
+    <p>Reliable and affordable.</p>
+    <p class="price">₹60</p>
+    <button onclick="addToCart('Batteries',60)">Add to Cart</button>
+  </div>
+
+<!-- Plastic Cup -->
+<div class="product-card">
+  <img src="images/plasticcup.jpg" alt="Plastic Cup">
+  <h3>Plastic Cup</h3>
+  <p>Durable, lightweight plastic cups for everyday use.</p>
+  <p class="price">₹50 / pack of 6</p>
+  <button onclick="addToCart('Plastic Cup',50)">Add to Cart</button>
+</div>
+
+
+</section>
+
+<footer>
+  © 2025 Shri Balaji Supermarket
+</footer>
+
+
+<script>
+  function addToCart(name, price){
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let found = cart.find(item => item.name === name);
+
+  if(found){
+    found.quantity += 1;
+  } else {
+    cart.push({name:name, price:price, quantity:1});
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  // ✅ Direct Cart Page Navigation
+  window.location.href = "cart.html";
+}
+</script>
+</body>
+</html>

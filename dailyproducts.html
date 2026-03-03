@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Products - Shri Balaji Supermarket</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+body{
+  background:#f4f4f4;
+}
+header{
+  background:#c61313; /* Red color */
+  color:white;
+  text-align:center;
+  padding:15px;
+  font-size:26px;
+  font-weight:bold;
+}
+nav{
+  background:#b52c1d; /* Red shade */
+  text-align:center;
+  padding:10px;
+}
+nav a{
+  color:white;
+  margin:0 12px;
+  text-decoration:none;
+  font-weight:bold;
+}
+nav a:hover{
+  color:#ffd54f;
+}
+.title{
+  text-align:center;
+  padding:20px;
+}
+
+.product-card{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.product-card:hover{
+  transform: translateY(-8px) scale(1.03);
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Image zoom on hover */
+.product-card img{
+  width:120px;
+  height:120px;
+  object-fit:contain;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover img{
+  transform: scale(1.1);
+}
+
+/* Button hover glow */
+.product-card:hover button{
+  background:#9e1010;
+}
+
+.products{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  padding:20px;
+}
+.product-card{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+.product-card img{
+  width:120px;
+  height:120px;
+  object-fit:contain;
+}
+.product-card h3{
+  margin:10px 0;
+  color:#c61313; /* Red headings */
+}
+.product-card p{
+  font-size:14px;
+  margin:4px 0;
+  color:#444;
+}
+.price{
+  font-weight:bold;
+  margin:8px 0;
+}
+button{
+  background:#c61313; /* Red button */
+  color:white;
+  border:none;
+  padding:8px 15px;
+  border-radius:5px;
+  cursor:pointer;
+}
+button:hover{
+  background:#9e1010;
+}
+footer{
+  background:#b52c1d;
+  color:white;
+  text-align:center;
+  padding:15px;
+  margin-top:30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>Shri Balaji Supermarket</header>
+
+<nav>
+ <a href="index.html" class="active">Home</a>
+  <a href="about.html">About</a>
+  <a href="products.html">Shop</a>
+  <a href="categories.html">Categories</a>
+  <a href="cart.html">Cart</a>
+  <a href="abc.html">Contact</a>
+</nav>
+<div class="title">
+<h2>Daily Products</h2>
+</div>
+
+<section class="products">
+
+<!-- Milk & Dairy -->
+<div class="product-card">
+<img src="images/amul milk.jpg" alt="Milk">
+<h3>Milk</h3>
+<p>Fresh and pure dairy milk.</p>
+<p>Used daily for tea and health.</p>
+<p class="price">₹70</p>
+<button onclick="addToCart('Milk',70)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/dahi.jpg" alt="Curd">
+<h3>Curd / Dahi</h3>
+<p>Healthy fermented milk.</p>
+<p>Good for digestion.</p>
+<p class="price">₹90</p>
+<button onclick="addToCart('Curd',90)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/butter.jpg" alt="Butter">
+<h3>Butter</h3>
+<p>Rich and creamy dairy product.</p>
+<p>Used in cooking.</p>
+<p class="price">₹118</p>
+<button onclick="addToCart('Butter',118)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/gee.jpg" alt="Ghee">
+<h3>Ghee</h3>
+<p>Pure clarified butter.</p>
+<p>Adds taste and nutrition.</p>
+<p class="price">₹285</p>
+<button onclick="addToCart('Ghee',285)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/paneer.jpg" alt="Paneer">
+<h3>Paneer</h3>
+<p>Fresh cottage cheese.</p>
+<p>Rich in protein.</p>
+<p class="price">₹50</p>
+<button onclick="addToCart('Paneer',50)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/cheese.jpg" alt="Cheese">
+<h3>Cheese</h3>
+<p>Dairy product with rich taste.</p>
+<p>Used in fast food.</p>
+<p class="price">₹130</p>
+<button onclick="addToCart('Cheese',130)">Add to Cart</button>
+</div>
+
+<!-- Cooking Essentials -->
+<div class="product-card">
+<img src="images/oil.jpg" alt="Cooking Oil">
+<h3>Cooking Oil</h3>
+<p>Used for daily cooking.</p>
+<p>Healthy refined oil.</p>
+<p class="price">₹160</p>
+<button onclick="addToCart('Cooking Oil',160)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/sugar.jpg" alt="Sugar">
+<h3>Sugar</h3>
+<p>Sweetening ingredient.</p>
+<p>Used in tea and sweets.</p>
+<p class="price">₹45</p>
+<button onclick="addToCart('Sugar',45)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/salt.jpg" alt="Salt">
+<h3>Salt</h3>
+<p>Essential cooking ingredient.</p>
+<p>Adds taste to food.</p>
+<p class="price">₹20</p>
+<button onclick="addToCart('Salt',20)">Add to Cart</button>
+</div>
+
+<!-- Beverages -->
+<div class="product-card">
+<img src="images/tea.jpg" alt="Tea Powder">
+<h3>Tea Powder</h3>
+<p>Refreshing beverage.</p>
+<p>Used daily.</p>
+<p class="price">₹61</p>
+<button onclick="addToCart('Tea',61)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/coffee.jpg" alt="Coffee Powder">
+<h3>Coffee Powder</h3>
+<p>Strong aroma coffee.</p>
+<p>Gives freshness.</p>
+<p class="price">₹109</p>
+<button onclick="addToCart('Coffee',109)">Add to Cart</button>
+</div>
+
+<!-- Soaps & Personal Care -->
+<div class="product-card">
+<img src="images/lifeboy.jpg" alt="Lifebuoy Soap">
+<h3>Lifebuoy Soap</h3>
+<p>Protects from germs.</p>
+<p>Daily hygiene product.</p>
+<p class="price">₹10</p>
+<button onclick="addToCart('Lifebuoy Soap',10)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/lux.jpg" alt="Lux Soap">
+<h3>Lux Soap</h3>
+<p>Fragrant bathing soap.</p>
+<p>Soft on skin.</p>
+<p class="price">₹40</p>
+<button onclick="addToCart('Lux Soap',40)">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="images/santoor.jpg" alt="Santoor Soap">
+<h3>Santoor Soap</h3>
+<p>Herbal soap.</p>
+<p>Good for skin.</p>
+<p class="price">₹20</p>
+<button onclick="addToCart('Santoor Soap',20)">Add to Cart</button>
+</div>
+
+</section>
+
+<footer>
+© 2025 Shri Balaji Supermarket
+</footer>
+
+<script>
+function addToCart(name, price){
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let found = cart.find(item => item.name === name);
+
+  if(found){
+    found.quantity += 1;
+  } else {
+    cart.push({name:name, price:price, quantity:1});
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  // ✅ Direct Cart Page Navigation
+  window.location.href = "cart.html";
+}
+</script>
+
+
+</body>
+</html>

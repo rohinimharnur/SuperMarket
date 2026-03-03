@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login - Shri Balaji Supermarket</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg, #ff512f, #dd2476, #24c6dc);
+  background-size: 300% 300%;
+  animation: gradientMove 8s ease infinite;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.box{
+  background:#ffffff;
+  padding:2.5rem;
+  width:360px;
+  border-radius:18px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.25);
+  text-align:center;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+h2{
+  margin-bottom:1.5rem;
+  color:#dd2476;
+  font-weight:600;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin:12px 0;
+  border-radius:10px;
+  border:1px solid #ddd;
+  outline:none;
+  transition:0.3s;
+}
+
+input:focus{
+  border-color:#dd2476;
+  box-shadow:0 0 8px rgba(221,36,118,0.4);
+}
+
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(to right,#ff512f,#dd2476);
+  color:#fff;
+  font-weight:600;
+  font-size:15px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+p{
+  margin-top:15px;
+  font-size:14px;
+}
+
+a{
+  color:#dd2476;
+  text-decoration:none;
+  font-weight:500;
+  transition:0.3s;
+}
+
+a:hover{
+  text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+<div class="box">
+  <h2>Welcome Back</h2>
+
+  <form action="/login" method="POST">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
+
+  <p>
+    New user? <a href="/signup">Create account</a>
+  </p>
+</div>
+</body>
+</html>
